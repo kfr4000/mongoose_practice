@@ -2,11 +2,13 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
-npm 
+
 const { User } = require("./model/user");
 
+const config = require('./config/key');
+
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://kfr4000:wkdaudgns1%40@cluster0.ldcto.mongodb.net/Cluster0?retryWrites=true&w=majority", {
+mongoose.connect(config.mongoURI, {
     useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(() => console.log("MongoDB Connected..."))
 .catch(err => console.log(err))
@@ -14,10 +16,10 @@ mongoose.connect("mongodb+srv://kfr4000:wkdaudgns1%40@cluster0.ldcto.mongodb.net
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
-//allplication/json
+//allplication/json 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send("Hello World 안녕하세요"));
+app.get('/', (req, res) => res.send("Hello World 안녕"));
 
 app.post("/register", (req, res) =>{
     //회원가입할때 필요한 정보들을 client에서 가져오면 그것들을 database에 넣어준다
